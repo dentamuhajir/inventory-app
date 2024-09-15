@@ -57,6 +57,22 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
+    public List<StockListResponseDTO> listStockDesc() {
+        List<Stock> stocks = stockRepository.findStockOrderByDesc();
+        List<StockListResponseDTO> dtos = new ArrayList<>();
+
+        for(Stock stock : stocks) {
+            StockListResponseDTO dto = new StockListResponseDTO();
+            dto.setId(stock.getId());
+            dto.setItemName(stock.getItemName());
+            dto.setImage(stock.getImage());
+            dtos.add(dto);
+        }
+
+        return dtos;
+    }
+
+    @Override
     public StockDetailResponseDTO detailStock(Long id) {
         Stock stock = stockRepository.findById(id).get();
         StockDetailResponseDTO dto = new StockDetailResponseDTO();

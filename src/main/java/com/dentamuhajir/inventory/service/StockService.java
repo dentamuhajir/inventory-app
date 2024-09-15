@@ -13,6 +13,8 @@ import java.util.List;
 public interface StockService {
     Stock createStock(StockCreateRequestDTO dto, MultipartFile image) throws IOException;
     List<StockListResponseDTO> listStocks();
+
+    List<StockListResponseDTO> listStockDesc();
     StockDetailResponseDTO detailStock(Long id);
     Stock updateStock(Long id, StockUpdateRequestDTO dto);
     void deleteStock(Long id);

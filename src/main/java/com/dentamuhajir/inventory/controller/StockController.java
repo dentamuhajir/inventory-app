@@ -79,6 +79,12 @@ public class StockController {
         }
     }
 
+    @GetMapping("/desc")
+    public ResponseEntity<List<StockListResponseDTO>> findAllStockDesc() {
+        List<StockListResponseDTO> stockList = stockService.listStockDesc();
+        return new ResponseEntity<>(stockList,HttpStatus.OK);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> updateStock(@PathVariable Long id, @Valid @RequestBody StockUpdateRequestDTO dto, BindingResult result) {
         logger.info("Updating stock with ID: {} and request: {}", id, dto);
