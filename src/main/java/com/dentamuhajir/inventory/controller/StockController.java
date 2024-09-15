@@ -6,10 +6,13 @@ import com.dentamuhajir.inventory.dto.StockListResponseDTO;
 import com.dentamuhajir.inventory.dto.StockUpdateRequestDTO;
 import com.dentamuhajir.inventory.model.Stock;
 import com.dentamuhajir.inventory.service.StockService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import org.apache.logging.log4j.LogManager;
@@ -17,7 +20,9 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
@@ -75,8 +80,13 @@ public class StockController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Stock> updateStock(@PathVariable Long id, @RequestBody StockUpdateRequestDTO dto) {
+    public ResponseEntity<?> updateStock(@PathVariable Long id, @Valid @RequestBody StockUpdateRequestDTO dto, BindingResult result) {
         logger.info("Updating stock with ID: {} and request: {}", id, dto);
+        if(result.hasErrors()) {
+            //return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            String error = "Validation error";
+            return ResponseEntity.badRequest().body(error);
+        }
         try {
             Stock updatedStock = stockService.updateStock(id, dto);
             if (updatedStock != null) {
