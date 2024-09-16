@@ -89,3 +89,61 @@ Jika Anda ingin berkontribusi pada proyek ini, silakan fork repositori ini dan k
 
 Proyek ini dilisensikan di bawah [MIT License](LICENSE).
 
+
+======================================================================================================================================
+
+# Alur Data dari Controller ke Database
+
+Proyek ini adalah aplikasi Spring Boot yang mengelola data stok. Data mengalir dari controller ke database dan kembali ke client mengikuti arsitektur berlapis.
+
+## Alur Data
+
+### 1. Controller Layer
+- **Endpoint:**  
+  Request HTTP diterima di endpoint `/api/stocks` dan diproses oleh metode `StockController.findAllStock()`.
+  
+- **Pemanggilan Service:**  
+  Controller memanggil `stockService.listStocks()` untuk mengambil daftar stok.
+
+### 2. Service Layer
+- **Metode Service:**  
+  `StockServiceImpl.listStocks()` dipanggil, yang kemudian memanggil `stockRepository.findAll()` untuk mengambil data dari database.
+
+- **Konversi Data:**  
+  Setelah data stok dalam bentuk `List<Stock>` didapatkan dari repository, terjadi iterasi (looping) untuk mengonversi setiap entitas `Stock` ke dalam DTO (`StockListResponseDTO`).
+
+### 3. Repository Layer
+- **Query Database:**  
+  `StockRepository.findAll()` menjalankan query untuk mengambil semua stok dari tabel `stocks` di database.
+
+- **Pengambilan Data:**  
+  Data yang diambil berupa list dari objek `Stock`.
+
+### 4. Service Layer (Lanjutan)
+- **List DTO:**  
+  Setelah proses iterasi selesai, list yang berisi `StockListResponseDTO` dikembalikan ke controller.
+
+### 5. Controller Layer (Lanjutan)
+- **Respon ke Client:**  
+  Data dikembalikan ke client dalam bentuk JSON dengan HTTP status `200 OK`.
+
+---
+
+## Looping dan Logika di Service Layer
+
+- **Proses Looping:**  
+  Di dalam `listStocks()`, looping digunakan untuk mengonversi setiap entitas `Stock` menjadi `StockListResponseDTO`. Proses ini penting agar hanya field yang relevan (ID, nama, gambar) yang dikembalikan ke client.
+
+- **Tidak Ada Kondisi:**  
+  Tidak ada kondisi `if` di dalam looping karena pada level ini, semua data stok dianggap valid dan langsung dikonversi ke dalam bentuk DTO.
+
+---
+
+## Kesimpulan
+1. Controller memproses HTTP request dan mengarahkan ke service untuk mengambil data stok.
+2. Service berperan dalam mengelola logika bisnis, termasuk mengonversi data entitas menjadi DTO.
+3. Repository melakukan query ke database dan mengembalikan data.
+4. Model merepresentasikan struktur data yang disimpan di dalam database.
+
+
+
