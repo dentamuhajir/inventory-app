@@ -90,7 +90,7 @@ Jika Anda ingin berkontribusi pada proyek ini, silakan fork repositori ini dan k
 Proyek ini dilisensikan di bawah [MIT License](LICENSE).
 
 
-======================================================================================================================================
+============GET LIST STOCK=================
 
 # Alur Data dari Controller ke Database
 
@@ -144,6 +144,70 @@ Proyek ini adalah aplikasi Spring Boot yang mengelola data stok. Data mengalir d
 2. Service berperan dalam mengelola logika bisnis, termasuk mengonversi data entitas menjadi DTO.
 3. Repository melakukan query ke database dan mengembalikan data.
 4. Model merepresentasikan struktur data yang disimpan di dalam database.
+
+==================== UPDATE STOCK BY ID ==========================
+# Alur Data dari Controller ke Database (Update Stok)
+
+Proyek ini adalah aplikasi Spring Boot yang mengelola data stok, termasuk memperbarui stok yang ada. Alur data dari controller ke database untuk proses update stok dijelaskan sebagai berikut.
+
+## Alur Data
+
+### 1. Controller Layer
+- **Endpoint:**  
+  Request HTTP PUT dikirimkan ke endpoint `/api/stocks/{id}` untuk mengupdate stok.
+
+- **Data Diterima:**  
+  Controller menerima ID stok dan data stok baru dari `StockUpdateRequestDTO`.
+
+- **Pemanggilan Service:**  
+  Controller memanggil `stockService.updateStock(id, dto)` untuk memproses update stok.
+
+### 2. Service Layer
+- **Pencarian Stok:**  
+  `StockServiceImpl.updateStock(id, dto)` mencari stok berdasarkan ID yang diberikan melalui `stockRepository.findById(id)`.
+
+- **Pembaruan Data:**  
+  Jika stok ditemukan, properti stok diperbarui dengan data baru dari DTO.
+
+- **Simpan ke Database:**  
+  Stok yang telah diperbarui disimpan kembali ke database menggunakan `stockRepository.save(existingStock)`.
+
+### 3. Repository Layer
+- **Pencarian Stok:**  
+  `StockRepository.findById(id)` digunakan untuk mencari stok berdasarkan ID.
+
+- **Simpan Stok:**  
+  `StockRepository.save(existingStock)` menyimpan entitas stok yang telah diperbarui ke dalam database.
+
+### 4. Controller Layer (Lanjutan)
+- **Respon Berhasil:**  
+  Jika stok berhasil di-update, controller mengembalikan data stok baru dengan HTTP status `200 OK`.
+
+- **Respon Gagal:**  
+  Jika stok tidak ditemukan, controller mengembalikan status `404 Not Found`.
+
+---
+
+## Kondisi dan Logika dalam Function
+
+- **Kondisi if (existingStock == null):**  
+  Memastikan bahwa stok dengan ID yang diberikan ada. Jika stok tidak ditemukan, update tidak dilakukan dan method mengembalikan `null` untuk menunjukkan bahwa stok tidak ditemukan.
+
+- **Update Properti Stok:**  
+  Setiap properti dari stok yang ditemukan akan di-update dengan nilai baru dari `StockUpdateRequestDTO`.
+
+- **Simpan ke Database:**  
+  Setelah semua properti stok diperbarui, stok disimpan kembali ke database menggunakan `stockRepository.save()`.
+
+---
+
+## Kesimpulan
+1. **Controller:** Menerima request untuk update stok dan memvalidasi input.
+2. **Service:** Menangani logika bisnis, termasuk pengecekan apakah stok ada, memperbarui data stok, dan menyimpan perubahan.
+3. **Repository:** Bertanggung jawab untuk melakukan query dan menyimpan data stok yang telah diperbarui ke dalam database.
+4. **Model:** Merepresentasikan data yang akan di-update dalam database.
+
+
 
 
 
