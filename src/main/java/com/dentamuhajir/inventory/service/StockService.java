@@ -18,4 +18,5 @@ public interface StockService {
     StockDetailResponseDTO detailStock(Long id);
     Stock updateStock(Long id, StockUpdateRequestDTO dto);
     void deleteStock(Long id);
+    List<StockListResponseDTO> listStockOrderByParam();
 }

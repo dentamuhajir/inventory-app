@@ -84,6 +84,11 @@ public class StockController {
         List<StockListResponseDTO> stockList = stockService.listStockDesc();
         return new ResponseEntity<>(stockList,HttpStatus.OK);
     }
+    @GetMapping("/asc")
+    public ResponseEntity<List<StockListResponseDTO>> findAllStockAsc() {
+        List<StockListResponseDTO> stockList = stockService.listStockOrderByParam();
+        return new ResponseEntity<>(stockList,HttpStatus.OK);
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateStock(@PathVariable Long id, @Valid @RequestBody StockUpdateRequestDTO dto, BindingResult result) {

@@ -106,4 +106,20 @@ public class StockServiceImpl implements StockService {
     public void deleteStock(Long id) {
         stockRepository.deleteById(id);
     }
+
+    @Override
+    public List<StockListResponseDTO> listStockOrderByParam() {
+        List<Stock> stocks = stockRepository.findStockOrderBy("item_name");
+
+        List<StockListResponseDTO> dtos = new ArrayList<>();
+
+        for(Stock stock : stocks) {
+          StockListResponseDTO dto = new StockListResponseDTO();
+          dto.setId(stock.getId());
+          dto.setItemName(stock.getItemName());
+          dto.setImage(stock.getImage());
+          dtos.add(dto);
+        }
+        return dtos;
+    }
 }
