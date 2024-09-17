@@ -19,6 +19,14 @@ Lapisan ini berfungsi sebagai representasi dari data yang akan disimpan di basis
 **Fungsi**: 
 Lapisan ini bertanggung jawab untuk berinteraksi dengan basis data. Repository menggunakan JPA (Java Persistence API) untuk melakukan operasi CRUD (Create, Read, Update, Delete) dan query terhadap basis data. Anda bisa menggunakan metode JPA yang sudah ada atau membuat query kustom menggunakan native query.
 
+**Intinya**:
+Ya, intinya repository dalam Spring Boot adalah sebagai abstraksi untuk interaksi dengan database. Dengan repository, kamu bisa melakukan berbagai operasi seperti menyimpan, mengambil, memperbarui, dan menghapus data dari database tanpa perlu menulis kode SQL secara manual.
+
+Repository adalah cara untuk mengelola data aplikasi, biasanya digunakan untuk menyimpan, memperbarui, mengambil, dan menghapus data.
+Jika repository menggunakan Spring Data JPA (JpaRepository), ia menyediakan metode otomatis untuk operasi database standar.
+Tanpa Spring Data JPA, kamu perlu menulis logika database manual.
+
+
 **Contoh**:
 - `UserRepository`: Antarmuka yang memperluas `JpaRepository` dan menyediakan metode untuk menemukan pengguna berdasarkan ID atau nama.
 
