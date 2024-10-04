@@ -1,5 +1,6 @@
 package com.dentamuhajir.inventory.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,6 +16,7 @@ public class StockTransaction {
 
     @ManyToOne
     @JoinColumn(name = "stock_id", nullable = false)
+    @JsonIgnore // Prevent serialization of the stock reference
     private Stock stock;
 
     @Column(name = "transaction_type", nullable = false)
