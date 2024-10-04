@@ -41,7 +41,28 @@ public class Stock {
     @Column(name = "updated_by")
     private String updatedBy;
 
-    @OneToMany(mappedBy = "stock", cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @OneToMany(mappedBy = "stock")
     private List<StockTransaction> transactions;
+
+//    @OneToMany(mappedBy = "stock", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<StockTransaction> transactions;
+//
+//    @Override
+//    public String toString() {
+//        return "Stock{" +
+//                "id=" + id +
+//                ", itemName='" + itemName + '\'' +
+//                ", stockQuantity=" + stockQuantity +
+//                ", serialNumber='" + serialNumber + '\'' +
+//                ", additionalInfo='" + additionalInfo + '\'' +
+//                ", image='" + image + '\'' +
+//                ", createdAt=" + createdAt +
+//                ", createdBy='" + createdBy + '\'' +
+//                ", updatedAt=" + updatedAt +
+//                ", updatedBy='" + updatedBy + '\'' +
+//                ", transactions=" + transactions + // You might want to customize this too
+//                '}';
+//    }
 
 }

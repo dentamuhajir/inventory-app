@@ -46,6 +46,7 @@ public class StockServiceImpl implements StockService {
         List<StockListResponseDTO> dtos = new ArrayList<>();
 
         for (Stock stock : stocks) {
+            //System.out.println(stock);
             StockListResponseDTO dto = new StockListResponseDTO();
             dto.setId(stock.getId());
             dto.setItemName(stock.getItemName());
@@ -73,17 +74,17 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public StockDetailResponseDTO detailStock(Long id) {
+    public Stock detailStock(Long id) {
         Stock stock = stockRepository.findById(id).get();
-        StockDetailResponseDTO dto = new StockDetailResponseDTO();
-        dto.setId(stock.getId());
-        dto.setItemName(stock.getItemName());
-        dto.setStockQuantity(stock.getStockQuantity());
-        dto.setSerialNumber(stock.getSerialNumber());
-        dto.setAdditionalInfo(stock.getAdditionalInfo());
-        dto.setImage(stock.getImage());
+//        StockDetailResponseDTO dto = new StockDetailResponseDTO();
+//        dto.setId(stock.getId());
+//        dto.setItemName(stock.getItemName());
+//        dto.setStockQuantity(stock.getStockQuantity());
+//        dto.setSerialNumber(stock.getSerialNumber());
+//        dto.setAdditionalInfo(stock.getAdditionalInfo());
+//        dto.setImage(stock.getImage());
 
-        return dto;
+        return stock;
     }
 
     @Override

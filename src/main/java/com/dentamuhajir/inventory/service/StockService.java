@@ -1,7 +1,6 @@
 package com.dentamuhajir.inventory.service;
 
 import com.dentamuhajir.inventory.dto.StockCreateRequestDTO;
-import com.dentamuhajir.inventory.dto.StockDetailResponseDTO;
 import com.dentamuhajir.inventory.dto.StockListResponseDTO;
 import com.dentamuhajir.inventory.dto.StockUpdateRequestDTO;
 import com.dentamuhajir.inventory.model.Stock;
@@ -15,7 +14,7 @@ public interface StockService {
     List<StockListResponseDTO> listStocks();
 
     List<StockListResponseDTO> listStockDesc();
-    StockDetailResponseDTO detailStock(Long id);
+    Stock detailStock(Long id);
     Stock updateStock(Long id, StockUpdateRequestDTO dto);
     void deleteStock(Long id);
     List<StockListResponseDTO> listStockOrderByParam();

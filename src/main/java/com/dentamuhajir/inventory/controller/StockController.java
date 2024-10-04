@@ -113,10 +113,10 @@ public class StockController {
     }
 
     @GetMapping("/detail/{id}")
-    public ResponseEntity<StockDetailResponseDTO> detailStock(@PathVariable Long id) {
+    public ResponseEntity<Stock> detailStock(@PathVariable Long id) {
         logger.info("Get detail stock with ID: {} ", id);
         try {
-            StockDetailResponseDTO detailStock = stockService.detailStock(id);
+            Stock detailStock = stockService.detailStock(id);
             logger.info("Get detail stock response: {} ", detailStock);
             return new ResponseEntity<>(detailStock, HttpStatus.OK);
         } catch (Exception e){
